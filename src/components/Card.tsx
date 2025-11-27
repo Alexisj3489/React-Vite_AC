@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// 1. DATOS ENRIQUECIDOS: Ahora incluyen información nutricional
+
 const datosAlimentos = [
   {
     id: 1,
@@ -125,7 +125,7 @@ const datosAlimentos = [
   {
     id: 10,
     alimento: "Arroz Cocido",
-    estado: "Maduro", // Contextualmente extraño para arroz, pero mantenemos tu lógica
+    estado: "Maduro", 
     porcentaje: 86,
     fecha: "Hoy, 07:00 AM",
     imagenUrl: "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=500&q=60",
@@ -139,7 +139,7 @@ const datosAlimentos = [
   },
 ];
 
-// Tipos de datos
+
 interface InfoNutricional {
   calorias: string;
   proteinas: string;
@@ -158,7 +158,6 @@ interface CardData {
   infoNutricional: InfoNutricional;
 }
 
-// 2. NUEVO COMPONENTE: MODAL DE NUTRICIÓN
 function NutritionModal({ data, onClose }: { data: CardData, onClose: () => void }) {
   if (!data) return null;
 
@@ -180,7 +179,7 @@ function NutritionModal({ data, onClose }: { data: CardData, onClose: () => void
               />
             </div>
             
-            {/* Tabla de info nutricional */}
+
             <table className="table table-bordered table-striped">
               <tbody>
                 <tr>
@@ -216,7 +215,7 @@ function NutritionModal({ data, onClose }: { data: CardData, onClose: () => void
   );
 }
 
-// COMPONENTE TARJETA INDIVIDUAL
+
 function SingleCard({ data, onVerDetalles }: { data: CardData, onVerDetalles: (item: CardData) => void }) {
 
   const getColorEstado = (estado: string) => {
@@ -261,7 +260,6 @@ function SingleCard({ data, onVerDetalles }: { data: CardData, onVerDetalles: (i
           Detección realizada por IA.
         </p>
         <div className="d-flex justify-content-between mt-3">
-          {/* Aquí conectamos el evento click con la función del padre */}
           <button 
             className="btn btn-primary btn-sm w-100 me-2"
             onClick={() => onVerDetalles(data)}
@@ -278,9 +276,9 @@ function SingleCard({ data, onVerDetalles }: { data: CardData, onVerDetalles: (i
   );
 }
 
-// COMPONENTE PRINCIPAL
+
 function Card() {
-  // 3. ESTADO: Controla qué alimento está seleccionado
+
   const [selectedFood, setSelectedFood] = useState<CardData | null>(null);
 
   return (
@@ -303,14 +301,13 @@ function Card() {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           {datosAlimentos.map(item => (
             <div className="col" key={item.id}>
-              {/* Pasamos la función setSelectedFood hacia abajo */}
+
               <SingleCard data={item} onVerDetalles={setSelectedFood} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Renderizado condicional del Modal */}
       {selectedFood && (
         <NutritionModal 
           data={selectedFood} 
